@@ -20,7 +20,31 @@ def dashboard(request):
 
     operations = Operations.objects.all()
 
-    return  render(request,"dashboard/dashboard.html", context={'operations':operations, 'users':User.objects.all()})
+    if request.method == "POST":
+        owner = User.objects.get(username=request.POST.get("owner"))
+        new_operations = Operations.objects.create(
+            name = request.POST.get("name"),
+            description = request.POST.get("description"),
+            price = request.POST.get("price"),
+            user = owner,
+            shared = request.POST.get("shared") == 1,
+            type = request.POST.get("type"),
+            repeat=request.POST.get("repeat") == 1,
+        )
+        if request.headers.get("HX-Request"):
+            context = {
+                "operations": Operations.objects.select_related("user").order_by("-date"),
+            }
+            return render(request, "dashboard/table.html", context)
+
+            # Requête classique (sans JS) : redirection habituelle
+        return redirect("dashboard")
+
+    context = {
+        "users": User.objects.all(),
+        "operations": Operations.objects.select_related("user").order_by("-date"),
+    }
+    return render(request, "dashboard/dashboard.html", context)
 
 
 @login_required

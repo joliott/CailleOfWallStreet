@@ -1,5 +1,8 @@
 <div class="card shadow-sm border-0">
-    <form method="POST" >
+    <form method="POST"  hx-post="{% url 'dashboard' %}"
+      hx-target="#operations-table"
+      hx-swap="outerHTML"
+      hx-on::after-request="if (event.detail.successful) this.reset()">
         {% csrf_token %}
 
         <div class="card-body">
@@ -29,6 +32,38 @@
                     <option value="{{ u.username }}">{{ u.username }}</option>
                 {% endfor %}
             </select>
+        </div>
+
+        <div class="card-body">
+            <label class="d-block mb-2">Type d'opération :</label>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="type-depense" value="d" checked>
+                <label class="form-check-label" for="type-depense">Dépense</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="type-revenu" value="r">
+                <label class="form-check-label" for="type-revenu">Revenu</label>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="shared" id="shared" value="1">
+                <label class="form-check-label" for="shared">Opération partagée</label>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat" id="repeat" value="1">
+                <label class="form-check-label" for="repeat">Répétitions</label>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
         </div>
 
 
