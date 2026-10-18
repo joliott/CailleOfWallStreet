@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.db.models.aggregates import Sum
 from django.shortcuts import render, redirect
 
 from finance.models import Operations, User
@@ -7,10 +9,19 @@ from finance.models import Operations, User
 
 @login_required
 def index(request):
+    par_personne = Operations.objects.filter(type="d").values("user__username").annotate(total=Sum("price")).order_by("-total")
+    print(par_personne)
+    chart_data = {
+        "labels": [r["user__username"] for r in par_personne],
+        "values": [round(r["total"], 2) for r in par_personne],
+    }
 
 
 
-    return render(request, 'dashboard/index.html', context={'username':request.user.username})
+    return render(request, 'dashboard/index.html', {"username": request.user.username,'chart_data': chart_data})
+    
+
+
 
 
 

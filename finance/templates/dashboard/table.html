@@ -7,6 +7,7 @@
                         <th class="px-4 py-3">Nom de l'opération</th>
                         <th class="px-4 py-3">Personne</th>
                         <th class="px-4 py-3 text-end">Montant</th>
+                        <th class="px-4 py-3 text-end">Date</th>
                     </tr>
                 </thead>
                 <tbody id="corps-tableau">
@@ -19,6 +20,7 @@
                         <td class="px-4 py-3 align-middle text-end fw-bold {% if operation.type == 'd' %}text-danger{% else %}text-success{% endif %}">
                             {% if operation.type == 'd' %}-{% else %}+{% endif %}{{ operation.price }} €
                         </td>
+                        <td class="px-4 py-3 align-middle fw-medium">{{ operation.date }}</td>
                     </tr>
                     {% empty %}
                     <tr>

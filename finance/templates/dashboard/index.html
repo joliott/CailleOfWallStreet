@@ -1,12 +1,90 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h1 class="h3 mb-0 text-dark fw-bold">Bonjour {{ username }} !</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1 class="h3 mb-0 text-dark fw-bold">Bonjour {{ username }} !</h1>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h3 class="h5">Bienvenue sur la page d'accueil des cailles de Wall Street :</h3>
+            <div class="card">
+                <div class="card-header fw-semibold">Total payé par personne</div>
+                <div class="card-body">
+                    {% if chart_data.labels %}
+                        <!-- L'endroit où le graphique va s'afficher -->
+                        <div class="position-relative" style="height: 340px;">
+                            <canvas id="pieDepenses"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info mb-0">Aucune dépense à afficher.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- ========================= -->
+<!-- SECTION SCRIPTS GRAPHIQUE -->
+<!-- ========================= -->
 
+<!-- 1. Injecter les données Python en toute sécurité pour JS -->
+{{ chart_data|json_script:"mes-donnees-graphique" }}
+
+<!-- 2. Charger Chart.js via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- 3. Dessiner le graphique -->
+<script>
+    // On vérifie que la balise de données existe bien (pour éviter une erreur si chart_data.labels est vide)
+    const dataElement = document.getElementById('mes-donnees-graphique');
+
+    if (dataElement) {
+        // Récupérer les données
+        const jsonData = JSON.parse(dataElement.textContent);
+
+        // Cibler le canvas de ta carte
+        const ctx = document.getElementById('pieDepenses').getContext('2d');
+
+        // Créer le graphique
+        new Chart(ctx, {
+            type: 'doughnut', // Type "camembert" (tu peux tester 'doughnut' ou 'bar')
+            data: {
+                labels: jsonData.labels,
+                datasets: [{
+                    label: 'Total payé (€)',
+                    data: jsonData.values,
+                    // Quelques couleurs par défaut pour que ce soit joli
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',   // Bleu
+                        'rgba(255, 99, 132, 0.7)',   // Rouge
+                        'rgba(255, 206, 86, 0.7)',   // Jaune
+                        'rgba(75, 192, 192, 0.7)',   // Vert
+                        'rgba(153, 102, 255, 0.7)'   // Violet
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, // Permet au graphique de bien prendre la hauteur de 340px que tu as définie
+                plugins: {
+                    legend: {
+                        position: 'right', // Place la légende sur le côté
+                    }
+                }
+            }
+        });
+    }
+</script>
 {% endblock %}
