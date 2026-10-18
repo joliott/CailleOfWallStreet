@@ -24,14 +24,19 @@ gantt
     Modélisation ORM & BDD (Amarante)     :active, 2026-10-18, 2026-10-30
     Intégration yfinance (Oscar)          :active, 2026-10-15, 2026-11-10
     Temps Réel HTMX (Amarante, Eliott)    :2026-11-04, 2026-11-15
+    Scoring FIRE (Amarante)               :2026-11-15, 2026-11-25
+    Dépenses quotidiennes & Salaires (Oscar):2026-11-18, 2026-11-25
+    Livret A, Stocks & Crypto (Eliott)    :2026-11-20, 2026-11-27
 
     section Fonctionnalités Lot 1
-    Vues Django Suivi (Eliott)            :2026-11-10, 2026-11-20
-    Scoring FIRE (Amarante)               :2026-11-15, 2026-11-25
-    Gestion dépenses (Oscar)              :2026-11-18, 2026-11-27
+    Invest. Immobilier & Mobilier (Oscar) :2026-11-25, 2026-11-28
+    Gestion des crédits (Amarante)        :2026-11-25, 2026-11-28
+    Catégories personnalisées (Oscar)     :2026-11-26, 2026-11-28
+    Projection linéaire (Amarante)        :2026-11-26, 2026-11-28
+    Partage de stratégie (Eliott)         :2026-11-26, 2026-11-28
 
     section Rendu & Soutenance
-    Nettoyage et tests (Équipe)           :2026-11-27, 2026-12-04
+    Nettoyage et tests (Équipe)           :2026-11-28, 2026-12-04
     README final (Eliott)                 :2026-12-01, 2026-12-06
     Slides et démo (Oscar, Amarante)      :2026-12-03, 2026-12-07
     GEL DU CODE SUR GIT (Équipe)          :milestone, 2026-12-08, 1d
