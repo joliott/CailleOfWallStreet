@@ -1,3 +1,4 @@
+```mermaid
 gantt
     title Planning du projet PRO8501 - Finance
     dateFormat  YYYY-MM-DD
@@ -30,3 +31,4 @@ gantt
     Slides et démo (Oscar, Amarante)      :2026-12-03, 2026-12-07
     GEL DU CODE SUR GIT (Équipe)          :milestone, 2026-12-08, 1d
     SOUTENANCE (Équipe)                   :milestone, 2026-12-09, 1d
+```
