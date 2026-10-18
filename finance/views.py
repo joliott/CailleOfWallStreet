@@ -62,7 +62,7 @@ def login_user(request):
 
         if user:
             login(request, user)
-
+    
             return redirect('index')
 
     return render(request, 'login/login.html')
